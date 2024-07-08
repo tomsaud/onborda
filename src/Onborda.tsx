@@ -69,7 +69,10 @@ const Onborda: React.FC<OnbordaProps> = ({
   useEffect(() => {
     if (isOnbordaVisible) {
       console.log("Onborda: Current Step Changed");
+
       const step = steps[currentStep];
+      console.log(step)
+      console.log(getCardStyle(steps[currentStep]?.side as any))
       if (step) {
         const element = document.querySelector(step.selector) as Element;
         if (element) {
@@ -382,6 +385,7 @@ const Onborda: React.FC<OnbordaProps> = ({
     prevStep,
     arrow,
   }: CardComponentProps) => {
+    console.log(steps[currentStep])
     return (
       <div className="flex flex-col w-full bg-white p-4 rounded-md text-black">
         <div className="flex items-center justify-between gap-5 mb-3">
@@ -398,9 +402,8 @@ const Onborda: React.FC<OnbordaProps> = ({
             <span
               key={index}
               data-name="onborda-step"
-              className={`self-stretch w-full h-1 rounded-xl ${
-                index === currentStep ? "bg-indigo-600" : "bg-indigo-100"
-              }`}
+              className={`self-stretch w-full h-1 rounded-xl ${index === currentStep ? "bg-indigo-600" : "bg-indigo-100"
+                }`}
             />
           ))}
         </div>
@@ -432,25 +435,25 @@ const Onborda: React.FC<OnbordaProps> = ({
 
   const CardToRender = CardComponent
     ? () => (
-        <CardComponent
-          step={steps[currentStep]}
-          currentStep={currentStep}
-          totalSteps={steps.length}
-          nextStep={nextStep}
-          prevStep={prevStep}
-          arrow={<CardArrow />}
-        />
-      )
+      <CardComponent
+        step={steps[currentStep]}
+        currentStep={currentStep}
+        totalSteps={steps.length}
+        nextStep={nextStep}
+        prevStep={prevStep}
+        arrow={<CardArrow />}
+      />
+    )
     : () => (
-        <DefaultCard
-          step={steps[currentStep]}
-          currentStep={currentStep}
-          totalSteps={steps.length}
-          nextStep={nextStep}
-          prevStep={prevStep}
-          arrow={<CardArrow />}
-        />
-      );
+      <DefaultCard
+        step={steps[currentStep]}
+        currentStep={currentStep}
+        totalSteps={steps.length}
+        nextStep={nextStep}
+        prevStep={prevStep}
+        arrow={<CardArrow />}
+      />
+    );
 
   return (
     <div
@@ -483,21 +486,21 @@ const Onborda: React.FC<OnbordaProps> = ({
             initial={
               pointerPosition
                 ? {
-                    x: pointerPosition.x - pointerPadOffset,
-                    y: pointerPosition.y - pointerPadOffset,
-                    width: pointerPosition.width + pointerPadding,
-                    height: pointerPosition.height + pointerPadding,
-                  }
+                  x: pointerPosition.x - pointerPadOffset,
+                  y: pointerPosition.y - pointerPadOffset,
+                  width: pointerPosition.width + pointerPadding,
+                  height: pointerPosition.height + pointerPadding,
+                }
                 : {}
             }
             animate={
               pointerPosition
                 ? {
-                    x: pointerPosition.x - pointerPadOffset,
-                    y: pointerPosition.y - pointerPadOffset,
-                    width: pointerPosition.width + pointerPadding,
-                    height: pointerPosition.height + pointerPadding,
-                  }
+                  x: pointerPosition.x - pointerPadOffset,
+                  y: pointerPosition.y - pointerPadOffset,
+                  width: pointerPosition.width + pointerPadding,
+                  height: pointerPosition.height + pointerPadding,
+                }
                 : {}
             }
             transition={{ ease: "anticipate", duration: 0.6 }}
