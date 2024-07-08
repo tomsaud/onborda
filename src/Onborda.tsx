@@ -68,8 +68,8 @@ const Onborda: React.FC<OnbordaProps> = ({
   // Update pointerPosition when currentStep changes
   useEffect(() => {
     if (isOnbordaVisible) {
-      console.log("Onborda: Current Step Changed");
-
+      console.log("Onborda: Current Step Changed v2");
+      console.log("Selecting step")
       const step = steps[currentStep];
       console.log(step)
       console.log(getCardStyle(steps[currentStep]?.side as any))
@@ -390,7 +390,7 @@ const Onborda: React.FC<OnbordaProps> = ({
       <div className="flex flex-col w-full bg-white p-4 rounded-md text-black">
         <div className="flex items-center justify-between gap-5 mb-3">
           <h2 className="text-xl font-bold">
-            {steps[currentStep]?.icon} {steps[currentStep]?.title}
+            {steps[currentStep]?.icon} {steps[currentStep]?.side}
           </h2>
           <div className="text-slate-300 text-base font-semibold">
             {currentStep + 1} of {steps.length}

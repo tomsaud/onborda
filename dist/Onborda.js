@@ -50,8 +50,11 @@ const Onborda = ({ children, steps, shadowRgb = "0, 0, 0", shadowOpacity = "0.2"
     // Update pointerPosition when currentStep changes
     useEffect(() => {
         if (isOnbordaVisible) {
-            console.log("Onborda: Current Step Changed");
+            console.log("Onborda: Current Step Changed v2");
+            console.log("Selecting step");
             const step = steps[currentStep];
+            console.log(step);
+            console.log(getCardStyle(steps[currentStep]?.side));
             if (step) {
                 const element = document.querySelector(step.selector);
                 if (element) {
@@ -188,6 +191,52 @@ const Onborda = ({ children, steps, shadowRgb = "0, 0, 0", shadowOpacity = "0.2"
                     top: "50%",
                     marginLeft: "25px",
                 };
+            case "top-left":
+                return {
+                    bottom: "100%",
+                    marginBottom: "25px",
+                };
+            case "top-right":
+                return {
+                    right: 0,
+                    bottom: "100%",
+                    marginBottom: "25px",
+                };
+            case "bottom-left":
+                return {
+                    top: "100%",
+                    marginTop: "25px",
+                };
+            case "bottom-right":
+                return {
+                    right: 0,
+                    top: "100%",
+                    marginTop: "25px",
+                };
+            case "right-bottom":
+                return {
+                    left: "100%",
+                    bottom: 0,
+                    marginLeft: "25px",
+                };
+            case "right-top":
+                return {
+                    left: "100%",
+                    top: 0,
+                    marginLeft: "25px",
+                };
+            case "left-bottom":
+                return {
+                    right: "100%",
+                    bottom: 0,
+                    marginRight: "25px",
+                };
+            case "left-top":
+                return {
+                    right: "100%",
+                    top: 0,
+                    marginRight: "25px",
+                };
             default:
                 return {}; // Default case if no side is specified
         }
@@ -220,6 +269,54 @@ const Onborda = ({ children, steps, shadowRgb = "0, 0, 0", shadowOpacity = "0.2"
                     top: "50%",
                     right: "-23px",
                 };
+            case "top-left":
+                return {
+                    transform: `rotate(90deg)`,
+                    left: "10px",
+                    bottom: "-23px",
+                };
+            case "top-right":
+                return {
+                    transform: `rotate(90deg)`,
+                    right: "10px",
+                    bottom: "-23px",
+                };
+            case "bottom-left":
+                return {
+                    transform: `rotate(270deg)`,
+                    left: "10px",
+                    top: "-23px",
+                };
+            case "bottom-right":
+                return {
+                    transform: `rotate(270deg)`,
+                    right: "10px",
+                    top: "-23px",
+                };
+            case "right-bottom":
+                return {
+                    transform: `rotate(180deg)`,
+                    left: "-23px",
+                    bottom: "10px",
+                };
+            case "right-top":
+                return {
+                    transform: `rotate(180deg)`,
+                    left: "-23px",
+                    top: "10px",
+                };
+            case "left-bottom":
+                return {
+                    transform: `rotate(0deg)`,
+                    right: "-23px",
+                    bottom: "10px",
+                };
+            case "left-top":
+                return {
+                    transform: `rotate(0deg)`,
+                    right: "-23px",
+                    top: "10px",
+                };
             default:
                 return {}; // Default case if no side is specified
         }
@@ -243,7 +340,8 @@ const Onborda = ({ children, steps, shadowRgb = "0, 0, 0", shadowOpacity = "0.2"
     // - -
     // Default Card
     const DefaultCard = ({ currentStep, nextStep, prevStep, arrow, }) => {
-        return (_jsxs("div", { className: "flex flex-col w-full bg-white p-4 rounded-md text-black", children: [_jsxs("div", { className: "flex items-center justify-between gap-5 mb-3", children: [_jsxs("h2", { className: "text-xl font-bold", children: [steps[currentStep]?.icon, " ", steps[currentStep]?.title] }), _jsxs("div", { className: "text-slate-300 text-base font-semibold", children: [currentStep + 1, " of ", steps.length] })] }), _jsx("div", { "data-name": "onborda-stepper", className: "flex w-full gap-1 mb-8", children: steps.map((_, index) => (_jsx("span", { "data-name": "onborda-step", className: `self-stretch w-full h-1 rounded-xl ${index === currentStep ? "bg-indigo-600" : "bg-indigo-100"}` }, index))) }), _jsx("div", { className: "text-[15px]", children: steps[currentStep]?.content }), steps[currentStep]?.showControls && (_jsxs("div", { className: "flex items-center w-full gap-4 mt-4", children: [_jsx("button", { "data-control": "prev", onClick: prevStep, className: "rounded-sm px-5 py-3 outline-none inline-flex items-center text-white bg-indigo-600 hover:bg-indigo-700", children: "Prev" }), _jsx("button", { "data-control": "next", onClick: nextStep, className: "rounded-sm px-5 py-3 outline-none inline-flex items-center text-white bg-indigo-600 hover:bg-indigo-700 ml-auto", children: "Next" })] })), _jsx("span", { className: "text-white", children: arrow })] }));
+        console.log(steps[currentStep]);
+        return (_jsxs("div", { className: "flex flex-col w-full bg-white p-4 rounded-md text-black", children: [_jsxs("div", { className: "flex items-center justify-between gap-5 mb-3", children: [_jsxs("h2", { className: "text-xl font-bold", children: [steps[currentStep]?.icon, " ", steps[currentStep]?.side] }), _jsxs("div", { className: "text-slate-300 text-base font-semibold", children: [currentStep + 1, " of ", steps.length] })] }), _jsx("div", { "data-name": "onborda-stepper", className: "flex w-full gap-1 mb-8", children: steps.map((_, index) => (_jsx("span", { "data-name": "onborda-step", className: `self-stretch w-full h-1 rounded-xl ${index === currentStep ? "bg-indigo-600" : "bg-indigo-100"}` }, index))) }), _jsx("div", { className: "text-[15px]", children: steps[currentStep]?.content }), steps[currentStep]?.showControls && (_jsxs("div", { className: "flex items-center w-full gap-4 mt-4", children: [_jsx("button", { "data-control": "prev", onClick: prevStep, className: "rounded-sm px-5 py-3 outline-none inline-flex items-center text-white bg-indigo-600 hover:bg-indigo-700", children: "Prev" }), _jsx("button", { "data-control": "next", onClick: nextStep, className: "rounded-sm px-5 py-3 outline-none inline-flex items-center text-white bg-indigo-600 hover:bg-indigo-700 ml-auto", children: "Next" })] })), _jsx("span", { className: "text-white", children: arrow })] }));
     };
     const CardToRender = CardComponent
         ? () => (_jsx(CardComponent, { step: steps[currentStep], currentStep: currentStep, totalSteps: steps.length, nextStep: nextStep, prevStep: prevStep, arrow: _jsx(CardArrow, {}) }))
